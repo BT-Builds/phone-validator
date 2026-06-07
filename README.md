@@ -47,3 +47,6 @@ curl -X POST https://phone-validator.vercel.app/validate \
 - $49/month for 100,000 validations
 
 Built for developers who need reliable phone validation without heavy libraries.
+
+## Postman
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://raw.githubusercontent.com/BT-Builds/phone-validator/main/postman_collection.json)
