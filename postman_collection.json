@@ -35,12 +35,8 @@
         ],
         "url": {
           "raw": "{{base_url}}/health",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "health"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["health"]
         }
       }
     },
@@ -62,16 +58,44 @@
         ],
         "url": {
           "raw": "{{base_url}}/validate",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "validate"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["validate"]
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"phone\": \"\"\n}",
+          "raw": "{\"phone\": \"\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Validate Bulk",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/bulk/validate",
+          "host": ["{{base_url}}"],
+          "path": ["bulk", "validate"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"items\": [\"\", \"\"]}",
           "options": {
             "raw": {
               "language": "json"

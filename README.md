@@ -12,34 +12,58 @@ Validate a phone number and get parsed details.
 
 **Headers:**
 ```
-X-API-Key: demo-key-change-me
+X-API-Key: free-demo-key
 Content-Type: application/json
 ```
 
 **Body:**
 ```json
-{"phone": "+14155551234"}
+{"phone": "+141****1234"}
 ```
 
 **Response:**
 ```json
 {
   "valid": true,
-  "formatted": "+14155551234",
-  "country_code": "+1",
-  "national_number": "4155551234",
-  "carrier": "AT&T",
-  "region": "US",
-  "type": "Mobile"
+  "normalized": "+141****1234",
+  "line_type": "mobile_or_landline",
+  "carrier_hint": "Unknown"
 }
 ```
 
 **Curl example:**
 ```bash
-curl -X POST https://phone-validator.vercel.app/validate \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: demo-key-change-me" \
-  -d '{"phone": "+14155551234"}'
+curl -X POST https://phone-validator.vercel.app/validate \\
+  -H "Content-Type: application/json" \\
+  -H "X-API-Key: free-demo-key" \\
+  -d '{"phone": "+141****1234"}'
+```
+
+### POST /bulk/validate
+Validate up to 1000 phone numbers in a single request.
+
+**Body:**
+```json
+{"items": ["+141****1234", "+441****7890"]}
+```
+
+**Response:**
+```json
+{
+  "results": [
+    {"input": "+141****1234", "output": {"valid": true, ...}, "error": null}
+  ],
+  "total": 2,
+  "successful": 2
+}
+```
+
+**Curl example:**
+```bash
+curl -X POST https://phone-validator.vercel.app/bulk/validate \\
+  -H "Content-Type: application/json" \\
+  -H "X-API-Key: free-demo-key" \\
+  -d '{"items": ["+141****1234", "+441****7890"]}'
 ```
 
 ## Pricing
