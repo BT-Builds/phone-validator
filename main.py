@@ -10,7 +10,7 @@ import os, time, json as _json
 from urllib.request import Request as _Req, urlopen as _urlopen
 
 _UPSTASH_URL   = os.environ.get('UPSTASH_REDIS_REST_URL', '')
-_UPSTASH_TOKEN = os.environ.get('UPSTASH_REDIS_REST_TOKEN', '')
+_UPSTASH_TOKEN=os.environ.get('UPSTASH_REDIS_REST_TOKEN', '')
 _TIERS = {'free': 1000, 'starter': 25000, 'pro': 200000, 'demo': 50}
 
 def _redis(cmd):
