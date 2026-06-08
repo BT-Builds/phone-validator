@@ -69,13 +69,13 @@ class PhoneResponse(BaseModel):
     region: Optional[str] = None
     type: Optional[str] = None
 
-def health():
-    return {"status": "ok"}
+class BulkPhoneRequest(BaseModel):
+    items: list[str]
 
-@app.post("/validate", response_model=PhoneResponse, dependencies=[Depends(verify_api_key)])
-def validate_phone(request: PhoneRequest):
+def _validate_single(phone: str) -> dict:
+    """Single phone validation logic - reused by both endpoints."""
     try:
-        parsed = phonenumbers.parse(request.phone, None)
+        parsed = phonenumbers.parse(phone, None)
     except NumberParseException:
         return {"valid": False}
 
@@ -91,6 +91,27 @@ def validate_phone(request: PhoneRequest):
         "region": phonenumbers.region_code_for_number(parsed),
         "type": ["Fixed", "Mobile", "TollFree", "Premium", "Shared", "VoIP", "Personal", "Pager", "UAN", "Unknown"][phonenumbers.number_type(parsed)]
     }
+
+def health():
+    return {"status": "ok"}
+
+@app.post("/validate", response_model=PhoneResponse, dependencies=[Depends(verify_api_key)])
+async def validate_phone(request: PhoneRequest):
+    return _validate_single(request.phone)
+
+@app.post("/bulk/validate", dependencies=[Depends(verify_api_key)])
+async def validate_phone_bulk(request: BulkPhoneRequest):
+    items = request.items[:1000]  # Cap at 1000 items
+    results = []
+    successful = 0
+    for phone in items:
+        try:
+            output = _validate_single(phone)
+            successful += 1
+            results.append({"input": phone, "output": output, "error": None})
+        except Exception as e:
+            results.append({"input": phone, "output": None, "error": str(e)})
+    return {"results": results, "total": len(items), "successful": successful}
 
 try:
     from mangum import Mangum
