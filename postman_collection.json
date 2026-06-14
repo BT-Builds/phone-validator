@@ -35,8 +35,12 @@
         ],
         "url": {
           "raw": "{{base_url}}/health",
-          "host": ["{{base_url}}"],
-          "path": ["health"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
         }
       }
     },
@@ -58,12 +62,16 @@
         ],
         "url": {
           "raw": "{{base_url}}/validate",
-          "host": ["{{base_url}}"],
-          "path": ["validate"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "validate"
+          ]
         },
         "body": {
           "mode": "raw",
-          "raw": "{\"phone\": \"\"}",
+          "raw": "{\n  \"phone\": \"\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -90,12 +98,17 @@
         ],
         "url": {
           "raw": "{{base_url}}/bulk/validate",
-          "host": ["{{base_url}}"],
-          "path": ["bulk", "validate"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "bulk",
+            "validate"
+          ]
         },
         "body": {
           "mode": "raw",
-          "raw": "{\"items\": [\"\", \"\"]}",
+          "raw": "{\n  \"items\": 0\n}",
           "options": {
             "raw": {
               "language": "json"
